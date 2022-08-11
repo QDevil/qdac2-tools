@@ -4,7 +4,7 @@ This repository contains additional tools and examples for QDAC-II.  See https:/
 
 ## List of tools
 
-- `usb-detector`: Detect a QDAC-II connected through USB and display port and version.
+- `usb-detector`: Detect a QDAC-II connected through USB and display port and setup information.
 
 ## How to use
 
