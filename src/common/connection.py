@@ -1,4 +1,3 @@
-import sys
 import serial.tools.list_ports as list_ports
 import serial
 
@@ -15,7 +14,7 @@ def find_serial_device():
     return candidates[0].device
 
 
-def detect_device():
+def report_device_info():
     serial_device = find_serial_device()
     print(f'Found QDAC-II on {serial_device}')
     connection = serial.Serial(serial_device, baud_rate, timeout=1)
@@ -24,12 +23,3 @@ def detect_device():
     data = connection.read(30)
     id = data.decode('utf-8')
     print(f'identification: {id}')
-
-
-if __name__ == '__main__':
-    try:
-        detect_device()
-        sys.exit(0)
-    except Exception as error:
-        print(f'Error: {error}')
-        sys.exit(1)
