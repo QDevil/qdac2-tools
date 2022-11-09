@@ -4,7 +4,7 @@ This repository contains additional tools and examples for QDAC-II.  See https:/
 
 ## List of tools
 
-- `usb-detector`: Detect a QDAC-II connected through USB and display port and setup information.
+- `usb_detector`: Detect a QDAC-II connected through USB and display port and setup information.
 
 ## How to use
 
@@ -19,14 +19,14 @@ For instance, to use the USB Detector, enter the python virtual environment and 
 In a Terminal:
 
 	$ source venv/bin/activate
-	$ python src/usb-detector.py
+	$ python src/usb_detector.py
 
 ### Windows
 
 In PowerShell:
 
-	PS> venv\Scripts\activate.bat
-	PS> python src\usb-detector.py
+	PS> venv\Scripts\activate.ps1
+	PS> python src\usb_detector.py
 
 
 ## First-time Setup
