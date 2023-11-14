@@ -1,7 +1,10 @@
+import pyvisa as visa
 import serial.tools.list_ports as list_ports
 import serial
 import re
 from dataclasses import dataclass
+from typing import Sequence, Tuple, Optional
+from platform import system as platform_system
 
 
 @dataclass
@@ -17,14 +20,62 @@ devices = [
 ]
 
 
-def find_serial_devices():
+def find_qdac2_on_usb(backend='@py') -> visa.Resource:
+    device = devices[0]
+    handle = find_serial_device(device)
+    if not handle:
+        raise ValueError('No device found')
+    if os_platform() == 'windows':
+        if handle[:3].lower() == 'com':
+            handle = handle[3:]
+    return find_visa_device(f'ASRL{handle}::INSTR', 'QDAC-II')
+
+
+def find_visa_device(address, description, backend='@py') -> visa.Resource:
+    rm = resource_manager(backend)
+    for tries in range(40):
+        try:
+            return rm.open_resource(address)
+        except ValueError:
+            break
+        except visa.VisaIOError:
+            print(f'Retrying connection to {address}')
+    raise ValueError(f'{description} device with address {address} not found')
+
+
+def resource_manager(backend=None) -> visa.ResourceManager:
+    if backend:
+        return visa.ResourceManager(backend)
+    return visa.ResourceManager()  # Use default NI backend
+
+
+def os_platform() -> str:
+    os_type = platform_system()
+    if os_type == 'Linux':
+        return 'linux'
+    if os_type == 'Darwin':
+        return 'macos'
+    if os_type == 'Windows':
+        return 'windows'
+    return 'unkown_os'
+
+
+def find_serial_device(device: Device) -> Optional[str]:
+    candidates = list(list_ports.grep(device.signature))
+    if len(candidates) == 1:
+        return candidates[0].device
+    if len(candidates) > 1:
+        raise ValueError('More than one device with signature '
+                         f'{device.signature} found')
+    return None
+
+
+def find_serial_devices() -> Sequence[Tuple[Device, str]]:
     result = []
     for device in devices:
-        candidates = list(list_ports.grep(device.signature))
-        if len(candidates) > 1:
-            raise ValueError(f'More than one device with signature {device.signature} found')
-        if len(candidates) == 1:
-            result.append((device, candidates[0].device))
+        handle = find_serial_device(device)
+        if handle:
+            result.append((device, handle))
     if not result:
         raise ValueError('No devices found')
     return result

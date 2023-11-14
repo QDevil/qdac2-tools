@@ -5,6 +5,7 @@ This repository contains additional tools and examples for QDAC-II and QSwitch. 
 ## List of tools
 
 - `usb_detector`: Detect a QDAC-II or QSwitch connected through USB and display port and setup information.
+- `qdac2`: Simple wrapper around pyvisa to handle connection and communication.
 
 ## First-time Setup
 
