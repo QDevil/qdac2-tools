@@ -1,4 +1,4 @@
-# Tools for QDevil QDAC-II
+# Tools for QDAC-II & QSwitch
 
 This repository contains additional tools and examples for QDAC-II and QSwitch.  See https://qm.quantum-machines.co/qe-documentation-firmware for more information and examples.
 
