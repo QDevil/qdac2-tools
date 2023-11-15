@@ -31,6 +31,17 @@ def find_qdac2_on_usb(backend='@py') -> visa.Resource:
     return find_visa_device(f'ASRL{handle}::INSTR', 'QDAC-II')
 
 
+def find_qswitch_on_usb(backend='@py') -> visa.Resource:
+    device = devices[1]
+    handle = find_serial_device(device)
+    if not handle:
+        raise ValueError('No device found')
+    if os_platform() == 'windows':
+        if handle[:3].lower() == 'com':
+            handle = handle[3:]
+    return find_visa_device(f'ASRL{handle}::INSTR', 'QSwitch')
+
+
 def find_visa_device(address, description, backend='@py') -> visa.Resource:
     rm = resource_manager(backend)
     for tries in range(40):

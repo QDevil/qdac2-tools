@@ -5,7 +5,8 @@ This repository contains additional tools and examples for QDAC-II and QSwitch. 
 ## List of tools
 
 - `usb_detector`: Detect a QDAC-II or QSwitch connected through USB and display port and setup information.
-- `qdac2`: Simple wrapper around pyvisa to handle connection and communication.
+- `qdac2`: Simple wrapper around pyvisa to handle connection and communication with QDAC-II.
+- `qswitch`: Simple wrapper around pyvisa to handle connection and communication with QSwitch.
 
 ## First-time Setup
 
@@ -28,9 +29,9 @@ In PowerShell:
 
 Most applications and examples are written in Python 3, so you will need to set up a virtual python environment, see First-time Setup above.
 
-Each subfolder contains a separate tool or example.
+The tools are located in the `src` directory.  See the individual source files for instructions on usage.
 
-For instance, to use the USB Detector, enter the python virtual environment and run the app in the subfolder:
+To use the USB Detector, enter the python virtual environment and run the app in the subfolder:
 
 ### Linux / macOS
 
