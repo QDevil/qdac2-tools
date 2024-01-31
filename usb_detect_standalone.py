@@ -1,3 +1,6 @@
+# Requirements: pyserial, pyvisa, pyvisa-py
+
+import sys
 import pyvisa as visa
 import serial.tools.list_ports as list_ports
 import serial
@@ -174,3 +177,11 @@ def report_device_info():
         dhcp = 'yes' if get_dhcp(connection) else 'no'
         print(f'DHCP enabled: {dhcp}')
         print('')
+
+if __name__ == '__main__':
+    try:
+        report_device_info()
+        sys.exit(0)
+    except Exception as error:
+        print(f'Error: {error}')
+        sys.exit(1)
