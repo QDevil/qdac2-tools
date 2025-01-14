@@ -76,7 +76,7 @@ def find_serial_device(device: Device) -> Optional[str]:
     candidates = list(list_ports.grep(device.signature))
     if len(candidates) == 1:
         return candidates[0].device
-    if len(candidates) > 1:
+    if (len(candidates) > 1):
         raise ValueError('More than one device with signature '
                          f'{device.signature} found')
     return None
@@ -85,9 +85,11 @@ def find_serial_device(device: Device) -> Optional[str]:
 def find_serial_devices() -> Sequence[Tuple[Device, str]]:
     result = []
     for device in devices:
-        handle = find_serial_device(device)
-        if handle:
-            result.append((device, handle))
+        candidates = list(list_ports.grep(device.signature))
+        for candidate in candidates:
+            handle = candidate.device
+            if handle:
+                result.append((device, handle))
     if not result:
         raise ValueError('No devices found')
     return result
