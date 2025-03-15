@@ -7,6 +7,7 @@ This repository contains additional tools and examples for QDAC-II and QSwitch. 
 - `usb_detector`: Detect a QDAC-II or QSwitch connected through USB and display port and setup information.
 - `qdac2`: Simple wrapper around pyvisa to handle connection and communication with QDAC-II.
 - `qswitch`: Simple wrapper around pyvisa to handle connection and communication with QSwitch.
+- `qswitch_driver`: A python based driver for the QSwitch, including several functionalities to switch the relays.
 
 ## First-time Setup
 
